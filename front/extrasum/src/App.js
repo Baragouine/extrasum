@@ -11,8 +11,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/helppage" element={<HelpPage/>}/>
-        <Route exact path="/aboutpage" element={<AboutPage/>}/>
+        <Route exact path="/help" element={<HelpPage/>}/>
+        <Route exact path="/about" element={<AboutPage/>}/>
 
         <Route exact path="/" element={<MainPage/>}/>
 
