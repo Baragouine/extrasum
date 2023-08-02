@@ -13,7 +13,7 @@ const Header = () => {
             `}
         >
             <div
-                className="ml-8 flex items-center"
+                className="ml-2 sm:ml-8 flex items-center"
             >
                 <div>
                     <img src={Logo} alt="Logo" className="w-10 h-10" />
@@ -30,8 +30,8 @@ const Header = () => {
                     className="px-4 py-2 hover:bg-gray-500 rounded-md"
                 >Help</Link>
                 <Link
-                    to="/help"
-                    className="ml-4 mr-8 px-4 py-2 hover:bg-gray-500 rounded-md"
+                    to="/about"
+                    className="mr-2 sm:mr-8 px-4 py-2 hover:bg-gray-500 rounded-md"
                 >About</Link>
             </div>
         </div>
