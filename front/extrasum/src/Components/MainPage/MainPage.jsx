@@ -2,14 +2,18 @@ import React from "react";
 
 import Page from "../ui/Page";
 import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
+import Body from "./Body/Body";
 
 
 const MainPage = () => {
     return (
         <Page
-            className="w-screen h-screen bg-gray-100"
+            className="w-screen h-full bg-gray-200"
         >
-            <Header></Header>
+            <Header />
+            <Body />
+            <Footer />
         </Page>
     );
 };

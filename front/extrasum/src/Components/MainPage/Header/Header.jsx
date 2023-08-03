@@ -5,7 +5,6 @@ import Logo from "./../../../images/logo.png";
 
 
 const Header = () => {
-    console.log(process.env.REACT_APP_CLASS_COMP_BG_COLOR);
     return (
         <div
             className={`

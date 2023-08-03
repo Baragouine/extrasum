@@ -7,7 +7,7 @@ const Footer = () => {
         <div
             className="w-full h-16 bg-gray-700 text-white flex justify-center items-center text-center"
         >
-            &copy; {(new Date()).getFullYear()} - Raoufdine SAID
+            &copy; {(new Date()).getFullYear()} - Laboratoire ERIC
         </div>
     );
 };
