@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 import DropDownWithInputs from "../../../ui/DropDownWithInputs";
+import DelimiterFieldset from "./DelimiterFieldset";
+import SummaryLengthFieldset from "./SummaryLengthFieldset";
 
 
-const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, setSumLengthUnit, sumLength, setSumLength, formattedSumInfo, text, setText, isEditText, setIsEditText }) => {
+const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, setSumLengthUnit, sumLength, setSumLength, formattedSumInfo, text, setText, isEditText, setIsEditText, excludedSents, currentDropDownWithInputsIdLvl0, setCurrentDropDownWithInputsIdLvl0 }) => {
     const handleDelimiterChange = (event) => {
         setDelimiter(event.target.value);
     };
@@ -43,6 +45,10 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
         focusTextArea();
     }, [text, isEditText])
 
+    const isExcludedSent = (index) => {
+        return !!excludedSents.find((e) => e === index);
+    }
+
     return (
         <div
             className={`
@@ -62,175 +68,36 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                 <div
                     className="hidden lg:flex lg:flex-row"
                 >
-                    <fieldset
-                        className="border border-gray-300 rounded-md p-1"
-                    >
-                        <legend
-                            className="font-semibold"
-                        >delimiter</legend>
-                        <div
-                            className="flex flex-row text-center justify-center"
-                        >
-                            <label
-                                className="flex items-center"
-                            >
-                                <input
-                                    type="radio"
-                                    value="default"
-                                    checked={delimiter === 'default'}
-                                    onChange={handleDelimiterChange}
-                                    className="mr-2"
-                                />
-                                default
-                            </label>
-                            <label
-                                className="flex items-center ml-2"
-                            >
-                                <input
-                                    type="radio"
-                                    value="newline"
-                                    checked={delimiter === 'newline'}
-                                    onChange={handleDelimiterChange}
-                                    className="mr-2"
-                                />
-                                <div
-                                    className="whitespace-nowrap"
-                                >new line</div>
-                            </label>
-                        </div>
-                    </fieldset>
-                    <fieldset
-                        className="border border-gray-300 rounded-md p-1 ml-2"
-                    >
-                        <legend
-                            className="font-semibold"
-                        >summary length</legend>
-                        <div
-                            className="flex flex-row text-center justify-center"
-                        >
-                            <input
-                                type="number"
-                                value={sumLength}
-                                className="border border-gray-200 pl-0.5"
-                                min={sumLengthUnit === "char" ? process.env.REACT_APP_MIN_SUM_CHARS : process.env.REACT_APP_MIN_SUM_LINES}
-                                max={sumLengthUnit === "char" ? process.env.REACT_APP_MAX_SUM_CHARS : process.env.REACT_APP_MAX_SUM_LINES}
-                                style={{ width: "4rem"}}
-                                onChange={handleSumLengthChange}
-                            />
-                            <label
-                                className="flex items-center ml-2"
-                            >
-                                <input
-                                    type="radio"
-                                    value="char"
-                                    checked={sumLengthUnit === 'char'}
-                                    onChange={handleSumLengthUnitChange}
-                                    className="mr-2"
-                                />
-                                chars
-                            </label>
-                            <label
-                                className="flex items-center ml-2"
-                            >
-                                <input
-                                    type="radio"
-                                    value="line"
-                                    checked={sumLengthUnit === 'line'}
-                                    onChange={handleSumLengthUnitChange}
-                                    className="mr-2"
-                                />
-                                lines
-                            </label>
-                        </div>
-                    </fieldset>
+                    <DelimiterFieldset
+                        delimiter={delimiter}
+                        handleDelimiterChange={handleDelimiterChange}
+                    />
+                    <SummaryLengthFieldset
+                        handleSumLengthUnitChange={handleSumLengthUnitChange}
+                        sumLengthUnit={sumLengthUnit}
+                        sumLength={sumLength}
+                        handleSumLengthChange={handleSumLengthChange}
+                    />
                 </div>
                 <div
                     className="lg:hidden"
                 >
                     <DropDownWithInputs
+                        id="textOptions"
                         title="options"
+                        currentDropDownWithInputsId={currentDropDownWithInputsIdLvl0}
+                        setCurrentDropDownWithInputsId={setCurrentDropDownWithInputsIdLvl0}
                     >
-                        <fieldset
-                            className="border border-gray-300 rounded-md p-1"
-                        >
-                            <legend
-                                className="font-semibold"
-                            >delimiter</legend>
-                            <div
-                                className="flex flex-row text-center justify-center"
-                            >
-                                <label
-                                    className="flex items-center"
-                                >
-                                    <input
-                                        type="radio"
-                                        value="default"
-                                        checked={delimiter === 'default'}
-                                        onChange={handleDelimiterChange}
-                                        className="mr-2"
-                                    />
-                                    default
-                                </label>
-                                <label
-                                    className="flex items-center ml-2"
-                                >
-                                    <input
-                                        type="radio"
-                                        value="newline"
-                                        checked={delimiter === 'newline'}
-                                        onChange={handleDelimiterChange}
-                                        className="mr-2"
-                                    />
-                                    <div
-                                        className="whitespace-nowrap"
-                                    >new line</div>
-                                </label>
-                            </div>
-                        </fieldset>
-                        <fieldset
-                            className="border border-gray-300 rounded-md p-1"
-                        >
-                            <legend
-                                className="font-semibold"
-                            >summary length</legend>
-                            <div
-                                className="flex flex-row text-center justify-center"
-                            >
-                                <input
-                                    type="number"
-                                    value={sumLength}
-                                    className="border border-gray-200 pl-0.5"
-                                    min={sumLengthUnit === "char" ? process.env.REACT_APP_MIN_SUM_CHARS : process.env.REACT_APP_MIN_SUM_LINES}
-                                    max={sumLengthUnit === "char" ? process.env.REACT_APP_MAX_SUM_CHARS : process.env.REACT_APP_MAX_SUM_LINES}
-                                    style={{ width: "4rem"}}
-                                    onChange={handleSumLengthChange}
-                                />
-                                <label
-                                    className="flex items-center ml-2"
-                                >
-                                    <input
-                                        type="radio"
-                                        value="char"
-                                        checked={sumLengthUnit === 'char'}
-                                        onChange={handleSumLengthUnitChange}
-                                        className="mr-2"
-                                    />
-                                    chars
-                                </label>
-                                <label
-                                    className="flex items-center ml-2"
-                                >
-                                    <input
-                                        type="radio"
-                                        value="line"
-                                        checked={sumLengthUnit === 'line'}
-                                        onChange={handleSumLengthUnitChange}
-                                        className="mr-2"
-                                    />
-                                    lines
-                                </label>
-                            </div>
-                        </fieldset>
+                        <DelimiterFieldset
+                            delimiter={delimiter}
+                            handleDelimiterChange={handleDelimiterChange}
+                        />
+                        <SummaryLengthFieldset
+                            handleSumLengthUnitChange={handleSumLengthUnitChange}
+                            sumLengthUnit={sumLengthUnit}
+                            sumLength={sumLength}
+                            handleSumLengthChange={handleSumLengthChange}
+                        />
                     </DropDownWithInputs>
                 </div>
                 <div
@@ -247,7 +114,7 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                 >
                     <textarea
                         ref={inputForTextRef}
-                        className="w-full resize-none max-h-64 lg:max-h-none text-md"
+                        className="w-full resize-none max-h-64 md:max-h-none text-base"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                     />
@@ -281,10 +148,12 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                     className="mt-2 px-2 w-full"
                 >
                     <div
-                        className="max-h-64 lg:max-h-none overflow-y-auto text-md"
+                        className="max-h-64 md:max-h-none overflow-y-auto text-base"
                         style={{ minHeight: "256px"}}
                     >
-                        <table>
+                        <table
+                            className="w-full"
+                        >
                             <tbody>
                                 {
                                     formattedSumInfo.map((sentInfo, index) => (
@@ -301,13 +170,24 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                                             key={index}
                                         >
                                             <td
-                                                className="align-top"
+                                                className="align-top text-right"
                                             >
                                                 <div
                                                     className="px-2"
                                                 >{index + 1}</div>
                                             </td>
-                                            <td>{sentInfo.sentence}</td>
+                                            <td
+                                                className="w-full"
+                                            >
+                                                {isExcludedSent(sentInfo.index) &&
+                                                    <span
+                                                        className="line-through"
+                                                    >{sentInfo.sentence}</span>
+                                                }
+                                                {!isExcludedSent(sentInfo.index) &&
+                                                    <span>{sentInfo.sentence}</span>
+                                                }
+                                            </td>
                                         </tr>
                                     ))
                                 }
@@ -315,7 +195,7 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                         </table>
                     </div>
                     <div
-                        className="w-full mb-1 mt-1 py-1 flex justify-between items-center"
+                        className="w-full mb-1 mt-2 py-1 flex justify-between items-center"
                     >
                         <div>
                             <button

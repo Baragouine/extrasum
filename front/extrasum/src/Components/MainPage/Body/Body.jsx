@@ -15,7 +15,10 @@ const Body = () => {
     const [sumLengthUnit, setSumLengthUnit] = useState("line");
     const [sumLength, setSumLength] = useState(sumLengthUnit === "char" ? process.env.REACT_APP_DEF_SUMLEN_CHARS : process.env.REACT_APP_DEF_SUMLEN_LENS);
     const [excludedSents, setExcludedSents] = useState([]);
+    const [sort, setSort] = useState("documentOrder");
     const [filter, setFilter] = useState(["salience", "content", "novelty", "posAbs", "posRel"]);
+    const [showedComp, setShowedComp] = useState(["salience", "content", "novelty", "posAbs", "posRel"]);
+    const [currentDropDownWithInputsIdLvl0, setCurrentDropDownWithInputsIdLvl0] = useState(null);
 
     const handleSummarize = async (text, delimiter) => {
         const result = await SummaryServices.summarize(text, delimiter);
@@ -30,7 +33,7 @@ const Body = () => {
 
     useEffect(() => {
         setExcludedSents([]);
-    }, [isEditText])
+    }, [isEditText, sumLength, sumLengthUnit]);
 
     useEffect(() => {
         if (!isEditText) {
@@ -42,11 +45,11 @@ const Body = () => {
         if (!isEditText) {
             setFormattedSumInfo(formatText(sumInfo, excludedSents, filter, sumLength, sumLengthUnit));
         }
-    }, [isEditText, sumLength, sumLengthUnit])
+    }, [isEditText, sumLength, sumLengthUnit, excludedSents]);
 
     return (
         <div
-            className="md:mx-8"
+            className="md:mx-8 min-h-screen"
         >
             <div
                 className="hidden md:flex md:h-16 items-center"
@@ -69,9 +72,23 @@ const Body = () => {
                     setText={setText}
                     isEditText={isEditText}
                     setIsEditText={setIsEditText}
+                    excludedSents={excludedSents}
+                    currentDropDownWithInputsIdLvl0={currentDropDownWithInputsIdLvl0}
+                    setCurrentDropDownWithInputsIdLvl0={setCurrentDropDownWithInputsIdLvl0}
                 />
                 <BodySummary
+                    isEditText={isEditText}
                     formattedSumInfo={formattedSumInfo}
+                    excludedSents={excludedSents}
+                    setExcludedSents={setExcludedSents}
+                    filter={filter}
+                    setFilter={setFilter}
+                    showedComp={showedComp}
+                    setShowedComp={setShowedComp}
+                    sort={sort}
+                    setSort={setSort}
+                    currentDropDownWithInputsIdLvl0={currentDropDownWithInputsIdLvl0}
+                    setCurrentDropDownWithInputsIdLvl0={setCurrentDropDownWithInputsIdLvl0}
                 />
             </div>
         </div>
