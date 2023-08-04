@@ -76,6 +76,10 @@ const Body = () => {
                     currentDropDownWithInputsIdLvl0={currentDropDownWithInputsIdLvl0}
                     setCurrentDropDownWithInputsIdLvl0={setCurrentDropDownWithInputsIdLvl0}
                 />
+                <div
+                    className="border-r border-gray-50 h-full"
+                >
+                </div>
                 <BodySummary
                     isEditText={isEditText}
                     formattedSumInfo={formattedSumInfo}

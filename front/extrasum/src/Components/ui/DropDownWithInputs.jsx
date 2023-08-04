@@ -13,7 +13,6 @@ const DropDownWithInputs = ({ direction, id, isMenu, text, title, children, curr
             if (isOpen) {
                 const menuStyle = contentRef.current.style;
                 if (contentRef.current.getBoundingClientRect().top + contentRef.current.clientHeight >  window.innerHeight) {
-                    console.log("4");
                     menuStyle.bottom = 'calc(100% + 0.25rem)';
                 } else {
                     if (direction === "left")

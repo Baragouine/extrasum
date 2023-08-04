@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import DropDownWithInputs from "../../../ui/DropDownWithInputs";
 import DelimiterFieldset from "./DelimiterFieldset";
 import SummaryLengthFieldset from "./SummaryLengthFieldset";
+import { isExcludedSent } from "../../../../utils/formatText";
 
 
 const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, setSumLengthUnit, sumLength, setSumLength, formattedSumInfo, text, setText, isEditText, setIsEditText, excludedSents, currentDropDownWithInputsIdLvl0, setCurrentDropDownWithInputsIdLvl0 }) => {
@@ -45,14 +46,10 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
         focusTextArea();
     }, [text, isEditText])
 
-    const isExcludedSent = (index) => {
-        return !!excludedSents.find((e) => e === index);
-    }
-
     return (
         <div
             className={`
-                bg-blue-300
+                bg-white
                 md:max-w-[50%]
                 w-full
                 md:rounded-tl-lg
@@ -179,7 +176,7 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                                                 >{index + 1}</div>
                                             </td>
                                             <td
-                                                className={`w-full break-words ${isExcludedSent(sentInfo.index) ? " line-through " : ""}`}
+                                                className={`w-full ${isExcludedSent(excludedSents, sentInfo.index) ? " line-through " : ""}`}
                                             >
                                                 {sentInfo.sentence}
                                             </td>

@@ -8,6 +8,7 @@ import SortComponent from "./SortComponent";
 import FilterComponent from "./FilterComponent";
 import ShowComponent from "./ShowComponent";
 import ResetButton from "./ResetButton";
+import { isExcludedSent } from "../../../../utils/formatText";
 
 
 const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedSents, filter, setFilter, showedComp, setShowedComp, sort, setSort, currentDropDownWithInputsIdLvl0, setCurrentDropDownWithInputsIdLvl0 }) => {
@@ -24,10 +25,6 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
         let tmp = [...excludedSents]
         tmp.push(index);
         setExcludedSents(tmp);
-    };
-
-    const isExcludedSent = (index) => {
-        return !!excludedSents.find((e) => e === index);
     };
 
     const handleSortChange = (event) => {
@@ -77,7 +74,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
     return (
         <div
             className={`
-                bg-red-400
+                bg-white
                 md:max-w-[50%]
                 w-full
                 md:rounded-br-lg
@@ -301,20 +298,20 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                 >{sentInfo.index + 1}</div>
                                             </td>
                                             <td
-                                                className={`w-full break-words ${isExcludedSent(sentInfo.index) ? " line-through " : ""}`}
+                                                className={`w-full ${isExcludedSent(excludedSents, sentInfo.index) ? " line-through " : ""}`}
                                             >
                                                 {sentInfo.sentence}
                                             </td>
                                             <td
                                                 className="cursor-pointer border-l border-gray-300"
                                             >
-                                                {!isExcludedSent(sentInfo.index) &&
+                                                {!isExcludedSent(excludedSents, sentInfo.index) &&
                                                     <BsTrash
                                                         className="text-base"
                                                         onClick={(e) => excludeSent(sentInfo.index)}
                                                     />
                                                 }
-                                                {isExcludedSent(sentInfo.index) &&
+                                                {isExcludedSent(excludedSents, sentInfo.index) &&
                                                     <GrAdd
                                                         className="text-base"
                                                         onClick={(e) => includeSent(sentInfo.index)}
@@ -376,51 +373,18 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                             <div>
                                 <MdOutlineContentCopy
                                     className="text-xl cursor-pointer"
+                                    title="copy summary"
                                     onClick={(e) => handleCopy()}
                                 />
                             </div>
                         </div>
                         <div
-                            className="flex flex-col screensize400px:flex-row items-center"
+                            className="w-full text-right"
                         >
-                            <div
-                                className="flex flex-row items-center"
-                            >
-                                {
-                                    ["salience", "content", "novelty", "posAbs"].map((name) => (
-                                        <div
-                                            className="flex flex-row items-center"
-                                            key={name}
-                                        >
-                                            <div
-                                                className={`
-                                                    ${name === "salience" ? " bg-red-200 " : ""}
-                                                    ${name === "content"  ? " bg-orange-300 " : ""}
-                                                    ${name === "novelty" ? " bg-lime-300 " : ""}
-                                                    ${name === "posAbs" ? " bg-teal-200 " : ""}
-                                                    ${name === "posRel" ? " bg-indigo-200 " : ""}
-                                                    ${name === "many" ? " bg-yellow-200 " : ""}
-                                                    h-3 w-3 lg:h-4 lg:w-4
-                                                    border border-gray-600
-                                                    ml-2
-                                                `}
-                                            ></div>
-                                            <div
-                                                className="ml-0.5 text-xs lg:text-base"
-                                            >
-                                                {name}
-                                            </div>
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                            <div
-                                className="flex flex-row items-center"
-                            >
                             {
-                                ["posRel", "many"].map((name) => (
+                                ["salience", "content", "novelty", "posAbs", "posRel", "many"].map((name) => (
                                     <div
-                                        className="flex flex-row items-center"
+                                        className="inline-flex items-center"
                                         key={name}
                                     >
                                         <div
@@ -431,20 +395,19 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                 ${name === "posAbs" ? " bg-teal-200 " : ""}
                                                 ${name === "posRel" ? " bg-indigo-200 " : ""}
                                                 ${name === "many" ? " bg-yellow-200 " : ""}
-                                                h-3 w-3 lg:h-4 lg:w-4
+                                                h-3 w-3 sm:w-4 sm:h-4
                                                 border border-gray-600
                                                 ml-2
                                             `}
                                         ></div>
                                         <div
-                                            className="ml-0.5 text-xs lg:text-base"
+                                            className="ml-0.5 text-xs sm:text-base"
                                         >
                                             {name}
                                         </div>
                                     </div>
                                 ))
                             }
-                            </div>
                         </div>
                     </div>
                 </div>

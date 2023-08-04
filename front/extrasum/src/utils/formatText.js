@@ -87,3 +87,7 @@ export function formatText(sumInfo, excludedSents, filter, maxLength, lengthUnit
 
     return formatTextUnitLine(tmpSumInfo, excludedSents, filter, parseInt(maxLength));
 }
+
+export function isExcludedSent(excludedSents, index) {
+    return (excludedSents.length > 0 && excludedSents[0] === index) || !!excludedSents.find((e) => e === index);
+}
