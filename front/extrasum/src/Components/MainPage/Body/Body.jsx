@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import BodyText from "./BodyText/BodyText";
 import BodySummary from "./BodySummary/BodySummary";
@@ -7,6 +7,8 @@ import { formatText } from "../../../utils/formatText";
 
 
 const Body = () => {
+    const [text, setText] = useState("");
+    const [isEditText, setIsEditText] = useState(true);
     const [sumInfo, setSumInfo] = useState([]);
     const [formattedSumInfo, setFormattedSumInfo] = useState([]);
     const [delimiter, setDelimiter] = useState("default");
@@ -25,6 +27,22 @@ const Body = () => {
 
         return result;
     };
+
+    useEffect(() => {
+        setExcludedSents([]);
+    }, [isEditText])
+
+    useEffect(() => {
+        if (!isEditText) {
+            handleSummarize(text, delimiter);
+        }
+    }, [isEditText, delimiter]);
+
+    useEffect(() => {
+        if (!isEditText) {
+            setFormattedSumInfo(formatText(sumInfo, excludedSents, filter, sumLength, sumLengthUnit));
+        }
+    }, [isEditText, sumLength, sumLengthUnit])
 
     return (
         <div
@@ -47,6 +65,10 @@ const Body = () => {
                     sumLength={sumLength}
                     setSumLength={setSumLength}
                     formattedSumInfo={formattedSumInfo}
+                    text={text}
+                    setText={setText}
+                    isEditText={isEditText}
+                    setIsEditText={setIsEditText}
                 />
                 <BodySummary
                     formattedSumInfo={formattedSumInfo}

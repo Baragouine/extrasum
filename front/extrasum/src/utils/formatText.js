@@ -32,6 +32,9 @@ function formatTextUnitChar(sumInfo, excludedSents, filter, maxLength) {
 
     let result = [...sumInfo];
 
+    for (let i = 0; i < result.length; ++i)
+        result[i].dominantComponent = null;
+
     excludedSents.forEach((i) => {
         if (i < maxLength)
             totalLength -= sumInfo[i].sentence.length;
@@ -48,7 +51,7 @@ function formatTextUnitChar(sumInfo, excludedSents, filter, maxLength) {
         result[i].dominantComponent = null;
     });
 
-    return sumInfo;
+    return result;
 }
 
 function formatTextUnitLine(sumInfo, excludedSents, filter, maxLength) {
@@ -57,6 +60,9 @@ function formatTextUnitLine(sumInfo, excludedSents, filter, maxLength) {
     argsort.reverse();
 
     let result = [...sumInfo];
+
+    for (let i = 0; i < result.length; ++i)
+        result[i].dominantComponent = null;
 
     excludedSents.forEach((i) => {
         if (i < maxLength) ++maxLength;
@@ -69,7 +75,7 @@ function formatTextUnitLine(sumInfo, excludedSents, filter, maxLength) {
         result[i].dominantComponent = null;
     });
 
-    return sumInfo;
+    return result;
 }
 
 export function formatText(sumInfo, excludedSents, filter, maxLength, lengthUnit) {

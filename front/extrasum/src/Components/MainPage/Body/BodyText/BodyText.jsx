@@ -3,10 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import DropDownWithInputs from "../../../ui/DropDownWithInputs";
 
 
-const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, setSumLengthUnit, sumLength, setSumLength, formattedSumInfo }) => {
-    const [text, setText] = useState("");
-    const [isEditText, setIsEditText] = useState(true);
-
+const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, setSumLengthUnit, sumLength, setSumLength, formattedSumInfo, text, setText, isEditText, setIsEditText }) => {
     const handleDelimiterChange = (event) => {
         setDelimiter(event.target.value);
     };

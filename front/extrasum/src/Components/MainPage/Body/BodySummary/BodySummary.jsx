@@ -15,7 +15,9 @@ const BodySummary = () => {
                     flex flex-row items-center justify-between mx-2 h-10 lg:h-20
                 `}
             >
-                BodySummary
+                <div
+                    className="font-bold text-xl"
+                >Summary</div>
             </div>
         </div>
     );
