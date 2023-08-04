@@ -12,7 +12,7 @@ function dominantComponent(sentInfo, filter) {
 
         for (let j = 0; j < filter.length; ++j) {
             if (i !== j) {
-                if (sentInfo[filter[i]] > sentInfo[filter[j]])
+                if (sentInfo[filter[i]] < sentInfo[filter[j]])
                     sup = false;
             }
         }
@@ -78,8 +78,6 @@ function formatTextUnitLine(sumInfo, excludedSents, filter, maxLength) {
 
 export function formatText(sumInfo, excludedSents, filter, maxLength, lengthUnit) {
     let tmpSumInfo = [...sumInfo];
-
-    console.log(excludedSents);
 
     for (let i = 0; i < sumInfo.length; ++i)
         tmpSumInfo[i].index = i;
