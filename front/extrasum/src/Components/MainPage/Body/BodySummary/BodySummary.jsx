@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import { GrAdd } from "react-icons/gr";
 import { MdOutlineContentCopy } from "react-icons/md";
@@ -12,6 +12,9 @@ import ResetButton from "./ResetButton";
 
 const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedSents, filter, setFilter, showedComp, setShowedComp, sort, setSort, currentDropDownWithInputsIdLvl0, setCurrentDropDownWithInputsIdLvl0 }) => {
     const [currentDropDownWithInputsId, setCurrentDropDownWithInputsId] = useState(null);
+    const msgSumarryCopiedRef = useRef(null);
+    const [showMsgSumarryCopied, setShowMsgSumarryCopied] = useState(false);
+    const [timeLastShowMsgSummaryCopied, setTimeLastShowMsgSummaryCopied] = useState(0);
 
     const includeSent = (index) => {
         setExcludedSents(excludedSents.filter((id) => id !== index));
@@ -53,10 +56,30 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
         return result;
     };
 
+    const handleCopy = () => {
+        let summary = sortSent(formattedSumInfo.filter((sentInfo) => !!sentInfo.dominantComponent && sentInfo.dominantComponent !== "many")).reduce((acc, curr) => acc + curr.sentence, "");
+
+        navigator.clipboard.writeText(summary).then(() => {
+            setShowMsgSumarryCopied(false);
+            setTimeLastShowMsgSummaryCopied(Date.now());
+            setTimeout(() => {
+                setShowMsgSumarryCopied(true);
+                setTimeout(() => {
+                    if ((Date.now() - timeLastShowMsgSummaryCopied) > 9000)
+                        setShowMsgSumarryCopied(false);
+                }, 10000);
+            }, 200);
+        }).catch(err => {
+            console.error("Erreur lors de la copie : ", err);
+        });
+    };
+
     return (
         <div
             className={`
-                w-full bg-red-400
+                bg-red-400
+                md:max-w-[50%]
+                w-full
                 md:rounded-br-lg
                 md:rounded-tr-lg
             `}
@@ -222,7 +245,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                     className="px-2 w-full"
                 >
                     <div
-                        className="max-h-64 md:max-h-none overflow-y-auto text-base"
+                        className="max-h-64 md:max-h-none overflow-auto text-base pb-5"
                     >
                         <table
                             className="w-full"
@@ -278,16 +301,9 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                 >{sentInfo.index + 1}</div>
                                             </td>
                                             <td
-                                                className="w-full"
+                                                className={`w-full break-words ${isExcludedSent(sentInfo.index) ? " line-through " : ""}`}
                                             >
-                                                {isExcludedSent(sentInfo.index) &&
-                                                    <span
-                                                        className="line-through"
-                                                    >{sentInfo.sentence}</span>
-                                                }
-                                                {!isExcludedSent(sentInfo.index) &&
-                                                    <span>{sentInfo.sentence}</span>
-                                                }
+                                                {sentInfo.sentence}
                                             </td>
                                             <td
                                                 className="cursor-pointer border-l border-gray-300"
@@ -333,16 +349,76 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                     <div
                         className="w-full mb-1 mt-2 py-1 flex justify-between items-center"
                     >
-                        <div>
-                            <MdOutlineContentCopy
-                                className="text-xl cursor-pointer"
-                            />
+                        <div
+                            className="relative"
+                        >
+                            {showMsgSumarryCopied &&
+                                <div
+                                    ref={msgSumarryCopiedRef}
+                                    className="absolute left-[-0.125rem] bottom-[1.8rem] "
+                                >
+                                    <div
+                                        className="whitespace-nowrap text-sm border border-gray-300 bg-white px-2 py-1"
+                                        tabIndex={0}
+                                    >
+                                        The summary has been successfully copied.
+                                    </div>
+                                    <div
+                                        className="relative"
+                                    >
+                                        <div
+                                            className="absolute bg-white h-2 w-2 rotate-45 left-[0.3rem] top-[-0.3rem]"
+                                        >
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <div>
+                                <MdOutlineContentCopy
+                                    className="text-xl cursor-pointer"
+                                    onClick={(e) => handleCopy()}
+                                />
+                            </div>
                         </div>
                         <div
-                            className="flex flex-row items-center"
+                            className="flex flex-col screensize400px:flex-row items-center"
                         >
+                            <div
+                                className="flex flex-row items-center"
+                            >
+                                {
+                                    ["salience", "content", "novelty", "posAbs"].map((name) => (
+                                        <div
+                                            className="flex flex-row items-center"
+                                            key={name}
+                                        >
+                                            <div
+                                                className={`
+                                                    ${name === "salience" ? " bg-red-200 " : ""}
+                                                    ${name === "content"  ? " bg-orange-300 " : ""}
+                                                    ${name === "novelty" ? " bg-lime-300 " : ""}
+                                                    ${name === "posAbs" ? " bg-teal-200 " : ""}
+                                                    ${name === "posRel" ? " bg-indigo-200 " : ""}
+                                                    ${name === "many" ? " bg-yellow-200 " : ""}
+                                                    h-3 w-3 lg:h-4 lg:w-4
+                                                    border border-gray-600
+                                                    ml-2
+                                                `}
+                                            ></div>
+                                            <div
+                                                className="ml-0.5 text-xs lg:text-base"
+                                            >
+                                                {name}
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            <div
+                                className="flex flex-row items-center"
+                            >
                             {
-                                ["salience", "content", "novelty", "posAbs", "posRel", "many"].map((name) => (
+                                ["posRel", "many"].map((name) => (
                                     <div
                                         className="flex flex-row items-center"
                                         key={name}
@@ -368,6 +444,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                     </div>
                                 ))
                             }
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -52,7 +52,9 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
     return (
         <div
             className={`
-                w-full bg-blue-300
+                bg-blue-300
+                md:max-w-[50%]
+                w-full
                 md:rounded-tl-lg
                 md:rounded-bl-lg
             `}
@@ -148,8 +150,8 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                     className="mt-2 px-2 w-full"
                 >
                     <div
-                        className="max-h-64 md:max-h-none overflow-y-auto text-base"
-                        style={{ minHeight: "256px"}}
+                        className="max-h-64 md:max-h-none overflow-auto text-base pb-5"
+                        style={{minHeight: "256px"}}
                     >
                         <table
                             className="w-full"
@@ -177,16 +179,9 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                                                 >{index + 1}</div>
                                             </td>
                                             <td
-                                                className="w-full"
+                                                className={`w-full break-words ${isExcludedSent(sentInfo.index) ? " line-through " : ""}`}
                                             >
-                                                {isExcludedSent(sentInfo.index) &&
-                                                    <span
-                                                        className="line-through"
-                                                    >{sentInfo.sentence}</span>
-                                                }
-                                                {!isExcludedSent(sentInfo.index) &&
-                                                    <span>{sentInfo.sentence}</span>
-                                                }
+                                                {sentInfo.sentence}
                                             </td>
                                         </tr>
                                     ))

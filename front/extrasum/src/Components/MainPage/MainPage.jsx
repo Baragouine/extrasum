@@ -9,7 +9,7 @@ import Body from "./Body/Body";
 const MainPage = () => {
     return (
         <Page
-            className="w-screen h-full bg-gray-200"
+            className="w-full h-full bg-gray-200"
         >
             <Header />
             <Body />
