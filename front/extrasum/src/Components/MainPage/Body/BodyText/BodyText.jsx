@@ -159,12 +159,12 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                                     formattedSumInfo.map((sentInfo, index) => (
                                         <tr
                                             className={`
-                                                ${sentInfo.dominantComponent === "salience" ? " bg-red-200 " : ""}
-                                                ${sentInfo.dominantComponent === "content"  ? " bg-orange-300 " : ""}
-                                                ${sentInfo.dominantComponent === "novelty" ? " bg-lime-300 " : ""}
-                                                ${sentInfo.dominantComponent === "posAbs" ? " bg-teal-200 " : ""}
+                                                ${sentInfo.dominantComponent === "salience" ? " bg-red-100 " : ""}
+                                                ${sentInfo.dominantComponent === "content"  ? " bg-orange-100 " : ""}
+                                                ${sentInfo.dominantComponent === "novelty" ? " bg-lime-100 " : ""}
+                                                ${sentInfo.dominantComponent === "posAbs" ? " bg-teal-100 " : ""}
                                                 ${sentInfo.dominantComponent === "posRel" ? " bg-indigo-100 " : ""}
-                                                ${sentInfo.dominantComponent === "many" ? " bg-yellow-200 " : ""}
+                                                ${sentInfo.dominantComponent === "many" ? " bg-yellow-100 " : ""}
                                                 ${index > 0 ? " border-t border-gray-300 " : ""}
                                             `}
                                             key={index}

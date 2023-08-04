@@ -280,12 +280,12 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                     sortSent(formattedSumInfo.filter((sentInfo) => !!sentInfo.dominantComponent)).map((sentInfo, index) => (
                                         <tr
                                             className={`
-                                                ${sentInfo.dominantComponent === "salience" ? " bg-red-200 " : ""}
-                                                ${sentInfo.dominantComponent === "content"  ? " bg-orange-300 " : ""}
-                                                ${sentInfo.dominantComponent === "novelty" ? " bg-lime-300 " : ""}
-                                                ${sentInfo.dominantComponent === "posAbs" ? " bg-teal-200 " : ""}
+                                                ${sentInfo.dominantComponent === "salience" ? " bg-red-100 " : ""}
+                                                ${sentInfo.dominantComponent === "content"  ? " bg-orange-100 " : ""}
+                                                ${sentInfo.dominantComponent === "novelty" ? " bg-lime-100 " : ""}
+                                                ${sentInfo.dominantComponent === "posAbs" ? " bg-teal-100 " : ""}
                                                 ${sentInfo.dominantComponent === "posRel" ? " bg-indigo-100 " : ""}
-                                                ${sentInfo.dominantComponent === "many" ? " bg-yellow-200 " : ""}
+                                                ${sentInfo.dominantComponent === "many" ? " bg-yellow-100 " : ""}
                                                 ${index > 0 ? " border-t border-gray-300 " : ""}
                                             `}
                                             key={index}
@@ -389,12 +389,12 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                     >
                                         <div
                                             className={`
-                                                ${name === "salience" ? " bg-red-200 " : ""}
-                                                ${name === "content"  ? " bg-orange-300 " : ""}
-                                                ${name === "novelty" ? " bg-lime-300 " : ""}
-                                                ${name === "posAbs" ? " bg-teal-200 " : ""}
+                                                ${name === "salience" ? " bg-red-100 " : ""}
+                                                ${name === "content"  ? " bg-orange-100 " : ""}
+                                                ${name === "novelty" ? " bg-lime-100 " : ""}
+                                                ${name === "posAbs" ? " bg-teal-100 " : ""}
                                                 ${name === "posRel" ? " bg-indigo-100 " : ""}
-                                                ${name === "many" ? " bg-yellow-200 " : ""}
+                                                ${name === "many" ? " bg-yellow-100 " : ""}
                                                 h-3 w-3 sm:w-4 sm:h-4
                                                 border border-gray-600
                                                 ml-2
