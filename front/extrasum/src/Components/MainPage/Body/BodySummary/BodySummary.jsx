@@ -54,7 +54,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
     };
 
     const handleCopy = () => {
-        let summary = sortSent(formattedSumInfo.filter((sentInfo) => !!sentInfo.dominantComponent && sentInfo.dominantComponent !== "many")).reduce((acc, curr) => acc + curr.sentence, "");
+        let summary = sortSent(formattedSumInfo.filter((sentInfo) => !!sentInfo.dominantComponent && sentInfo.dominantComponent !== "excluded")).reduce((acc, curr) => acc + curr.sentence, "");
 
         navigator.clipboard.writeText(summary).then(() => {
             setShowMsgSumarryCopied(false);

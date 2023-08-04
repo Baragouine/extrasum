@@ -8,7 +8,7 @@ class SummaryServicesClass {
 
         return [0,
             textSplit.map((sentence) => (
-                {sentence:sentence, salience:Math.random(), content:Math.random(), novelty:Math.random(), posAbs:Math.random(), posRel:Math.random()}
+                {sentence:sentence + ".", salience:Math.random(), content:Math.random(), novelty:Math.random(), posAbs:Math.random(), posRel:Math.random()}
             ))
         ];
     }
