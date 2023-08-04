@@ -77,7 +77,7 @@ const Body = () => {
                     setCurrentDropDownWithInputsIdLvl0={setCurrentDropDownWithInputsIdLvl0}
                 />
                 <div
-                    className="border-r border-gray-50 h-full"
+                    className="md:border-r border-gray-300 border-t md:border-t-0 h-full"
                 >
                 </div>
                 <BodySummary
