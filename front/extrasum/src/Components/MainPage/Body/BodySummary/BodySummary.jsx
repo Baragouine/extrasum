@@ -284,7 +284,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                 ${sentInfo.dominantComponent === "content"  ? " bg-orange-300 " : ""}
                                                 ${sentInfo.dominantComponent === "novelty" ? " bg-lime-300 " : ""}
                                                 ${sentInfo.dominantComponent === "posAbs" ? " bg-teal-200 " : ""}
-                                                ${sentInfo.dominantComponent === "posRel" ? " bg-indigo-200 " : ""}
+                                                ${sentInfo.dominantComponent === "posRel" ? " bg-indigo-100 " : ""}
                                                 ${sentInfo.dominantComponent === "many" ? " bg-yellow-200 " : ""}
                                                 ${index > 0 ? " border-t border-gray-300 " : ""}
                                             `}
@@ -393,7 +393,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                 ${name === "content"  ? " bg-orange-300 " : ""}
                                                 ${name === "novelty" ? " bg-lime-300 " : ""}
                                                 ${name === "posAbs" ? " bg-teal-200 " : ""}
-                                                ${name === "posRel" ? " bg-indigo-200 " : ""}
+                                                ${name === "posRel" ? " bg-indigo-100 " : ""}
                                                 ${name === "many" ? " bg-yellow-200 " : ""}
                                                 h-3 w-3 sm:w-4 sm:h-4
                                                 border border-gray-600
