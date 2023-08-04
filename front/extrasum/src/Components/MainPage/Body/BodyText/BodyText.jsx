@@ -116,7 +116,7 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                         className="w-full resize-none max-h-64 md:max-h-none text-base p-1"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
-                        placeholder="Enter your text"
+                        placeholder="Enter your text here"
                     />
                     <div
                         className="w-full mb-1 mt-1 py-1 flex justify-between items-center"
