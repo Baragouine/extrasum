@@ -352,10 +352,10 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                             {showMsgSumarryCopied &&
                                 <div
                                     ref={msgSumarryCopiedRef}
-                                    className="absolute left-[-0.125rem] bottom-[1.8rem] "
+                                    className="absolute left-[-0.125rem] bottom-[2rem] "
                                 >
                                     <div
-                                        className="whitespace-nowrap text-sm border border-gray-300 bg-white px-2 py-1"
+                                        className="whitespace-nowrap text-sm border border-gray-300 bg-green-100 px-2 py-1"
                                         tabIndex={0}
                                     >
                                         The summary has been successfully copied.
@@ -364,7 +364,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                         className="relative"
                                     >
                                         <div
-                                            className="absolute bg-white h-2 w-2 rotate-45 left-[0.3rem] top-[-0.3rem]"
+                                            className="absolute bg-green-100 h-2 w-2 rotate-45 left-[0.3rem] top-[-0.28rem] border-r border-b border-gray-300"
                                         >
                                         </div>
                                     </div>

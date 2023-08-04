@@ -113,9 +113,10 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                 >
                     <textarea
                         ref={inputForTextRef}
-                        className="w-full resize-none max-h-64 md:max-h-none text-base"
+                        className="w-full resize-none max-h-64 md:max-h-none text-base p-1"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
+                        placeholder="Enter your text"
                     />
                     <div
                         className="w-full mb-1 mt-1 py-1 flex justify-between items-center"
@@ -209,11 +210,11 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                         <div
                             className="flex flex-row"
                         >
-                            <div>{formattedSumInfo.length} lines</div>
+                            <div>{formattedSumInfo.length} line(s)</div>
                             <div
                                 className="ml-4"
                             >
-                                {text.length} chars
+                                {text.length} char(s)
                             </div>
                         </div>
                     </div>
