@@ -36,19 +36,18 @@ function formatTextUnitChar(sumInfo, excludedSents, filter, maxLength) {
         result[i].dominantComponent = null;
 
     excludedSents.forEach((i) => {
-        if (i < maxLength)
-            totalLength -= sumInfo[i].sentence.length;
+        totalLength -= sumInfo[i].sentence.length;
     });
 
     for (let i = 0; i < sumInfo.length; ++i) {
         if (totalLength < maxLength) {
-            result[i].dominantComponent = dominantComponent(result[i], filter);
-            totalLength += result[i].sentence.length;
+            result[argsort[i]].dominantComponent = dominantComponent(result[argsort[i]], filter);
+            totalLength += result[argsort[i]].sentence.length;
         }
     }
 
     excludedSents.forEach((i) => {
-        result[i].dominantComponent = null;
+        result[i].dominantComponent = "excluded";
     });
 
     return result;
@@ -56,6 +55,7 @@ function formatTextUnitChar(sumInfo, excludedSents, filter, maxLength) {
 
 function formatTextUnitLine(sumInfo, excludedSents, filter, maxLength) {
     let argsort = argSortSumInfo(sumInfo, filter);
+    let newMaxLength = maxLength;
 
     argsort.reverse();
 
@@ -64,23 +64,28 @@ function formatTextUnitLine(sumInfo, excludedSents, filter, maxLength) {
     for (let i = 0; i < result.length; ++i)
         result[i].dominantComponent = null;
 
-    excludedSents.forEach((i) => {
-        if (i < maxLength) ++maxLength;
-    });
+    newMaxLength += excludedSents.length;
 
-    for (let i = 0; i < result.length && i < maxLength; ++i)
-        result[i].dominantComponent = dominantComponent(result[i], filter);
+    for (let i = 0; i < result.length && i < newMaxLength; ++i)
+        result[argsort[i]].dominantComponent = dominantComponent(result[argsort[i]], filter);
 
     excludedSents.forEach((i) => {
-        result[i].dominantComponent = null;
+        result[i].dominantComponent = "excluded";
     });
 
     return result;
 }
 
 export function formatText(sumInfo, excludedSents, filter, maxLength, lengthUnit) {
-    if (lengthUnit === "char")
-        return formatTextUnitChar(sumInfo, excludedSents, filter, maxLength);
+    let tmpSumInfo = [...sumInfo];
 
-    return formatTextUnitLine(sumInfo, excludedSents, filter, maxLength);
+    console.log(excludedSents);
+
+    for (let i = 0; i < sumInfo.length; ++i)
+        tmpSumInfo[i].index = i;
+
+    if (lengthUnit === "char")
+        return formatTextUnitChar(tmpSumInfo, excludedSents, filter, parseInt(maxLength));
+
+    return formatTextUnitLine(tmpSumInfo, excludedSents, filter, parseInt(maxLength));
 }
