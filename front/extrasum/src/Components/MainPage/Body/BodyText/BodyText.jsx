@@ -119,9 +119,11 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                         placeholder="Enter your text here"
                     />
                     <div
-                        className="w-full mb-1 mt-1 py-1 flex justify-between items-center"
+                        className="w-full mb-2 mt-1 py-1 flex justify-between items-center"
                     >
-                        <div>
+                        <div
+                            className="ml-2"
+                        >
                             <button
                                 className={text.length > 0 ?
                                     "bg-gray-700 px-2 py-1 rounded-md text-white hover:bg-gray-500" :
@@ -188,9 +190,11 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                         </table>
                     </div>
                     <div
-                        className="w-full mb-1 mt-2 py-1 flex justify-between items-center"
+                        className="w-full mb-2 mt-2 py-1 flex justify-between items-center"
                     >
-                        <div>
+                        <div
+                            className="ml-2"
+                        >
                             <button
                                 className={text.length > 0 ?
                                     "bg-gray-700 px-2 py-1 rounded-md text-white hover:bg-gray-500" :

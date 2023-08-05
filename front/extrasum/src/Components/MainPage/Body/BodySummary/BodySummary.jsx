@@ -344,15 +344,15 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                         </table>
                     </div>
                     <div
-                        className="w-full mb-1 mt-2 py-1 flex justify-between items-center"
+                        className="w-full mb-2 mt-2 py-1 flex justify-between items-center"
                     >
                         <div
-                            className="relative"
+                            className="relative ml-2"
                         >
                             {showMsgSumarryCopied &&
                                 <div
                                     ref={msgSumarryCopiedRef}
-                                    className="absolute left-[-0.125rem] bottom-[2rem] "
+                                    className="absolute left-[-0.25rem] bottom-[2rem] "
                                 >
                                     <div
                                         className="whitespace-nowrap text-sm border border-gray-300 bg-green-100 px-2 py-1"
@@ -364,7 +364,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                         className="relative"
                                     >
                                         <div
-                                            className="absolute bg-green-100 h-2 w-2 rotate-45 left-[0.3rem] top-[-0.28rem] border-r border-b border-gray-300"
+                                            className="absolute bg-green-100 h-2 w-2 rotate-45 left-[0.5rem] top-[-0.28rem] border-r border-b border-gray-300"
                                         >
                                         </div>
                                     </div>
@@ -379,7 +379,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                             </div>
                         </div>
                         <div
-                            className="w-full text-right"
+                            className="w-full text-right mr-2"
                         >
                             {
                                 ["salience", "content", "novelty", "posAbs", "posRel", "many"].map((name) => (
