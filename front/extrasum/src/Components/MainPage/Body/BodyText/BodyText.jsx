@@ -58,7 +58,7 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
         >
             <div
                 className={`
-                    flex flex-row items-center justify-between mx-2 h-10 lg:h-20
+                    flex flex-row items-center justify-between mx-4 h-10 lg:h-20
                 `}
             >
                 <div
