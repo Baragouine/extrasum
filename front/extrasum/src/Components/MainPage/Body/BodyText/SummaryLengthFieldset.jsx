@@ -43,7 +43,7 @@ const SummaryLengthFieldset = ({ handleSumLengthUnitChange, sumLengthUnit, sumLe
                         onChange={handleSumLengthUnitChange}
                         className="mr-2"
                     />
-                    lines
+                    sents
                 </label>
             </div>
         </fieldset>
