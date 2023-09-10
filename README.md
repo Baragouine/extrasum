@@ -54,4 +54,14 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+### Run front-end
+Open a new terminal.  
+  
+npm must be installed.  
+  
+Enter into `cd extrasum/front/extrasum/`.  
+  
+Run ```npm install```.
+  
+Finally, run ```npm start```.
 
