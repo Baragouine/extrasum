@@ -19,7 +19,7 @@ conda activate EXTRASUM
 
 ### Enter into back-end directory
 ```bash
-cd extrasum/extrasum/back/
+cd extrasum/back/
 ```
 
 ### Install dependencies
@@ -28,10 +28,30 @@ pip install -r requirements.txt
 conda install pytorch-geometric -c rusty1s -c conda-forge
 ```
 
-### Install Django REST framework
+### Install Django REST framework and Django cors header
 ```bash
-cd extrasum_back/ # location: extrasum/extrasum/back/extrasum_back
 pip install django
 pip install djangorestframework
+pip install django-cors-headers
 ```
+
+### Enter into back-end directory
+```bash
+cd extrasum_back/ # location: extrasum/back/extrasum_back
+```
+### Download data
+Download [https://drive.google.com/file/d/13lErhO3rZ1gZaOPmjPwZryc8nNJKW9Wt/view?usp=sharing](https://drive.google.com/file/d/13lErhO3rZ1gZaOPmjPwZryc8nNJKW9Wt/view?usp=sharing), extract and copy it to `extrasum/back/extrasum_back`.  
+
+The path must be `extrasum/back/extrasum_back/data/`.
+
+### Migrate
+```
+python manage.py migrate
+```
+
+### Run back-end
+```bash
+python manage.py runserver
+```
+
 
