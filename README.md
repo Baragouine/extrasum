@@ -57,7 +57,7 @@ python manage.py runserver
 ### Run front-end
 Open a new terminal.  
   
-npm must be installed.  
+npm must be installed (version 9.8.0 recommended).  
   
 Enter into `cd extrasum/front/extrasum/`.  
   
