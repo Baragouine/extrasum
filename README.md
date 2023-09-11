@@ -28,6 +28,13 @@ pip install -r requirements.txt
 conda install pytorch-geometric -c rusty1s -c conda-forge
 ```
 
+## Install nltk data
+To install nltk data:
+  - Open a python console.
+  - Type ``` import nltk; nltk.download()```.
+  - Download all data.
+  - Close the python console.
+
 ### Install Django REST framework and Django cors header
 ```bash
 pip install django
@@ -62,6 +69,8 @@ npm must be installed (version 9.8.0 recommended).
 Enter into `cd extrasum/front/extrasum/`.  
   
 Run ```npm install```.
+
+Run ```npm install react-scripts```.
   
 Finally, run ```npm start```.
 
