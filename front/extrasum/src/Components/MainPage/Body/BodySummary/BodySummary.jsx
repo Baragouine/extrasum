@@ -71,6 +71,8 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
         });
     };
 
+    const sigmoid = (x) => 1.0 / (1.0 + Math.exp(-x));
+
     return (
         <div
             className={`
@@ -258,14 +260,21 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                         className="relative border-l border-gray-300 text-xs h-12 min-w-[1.45rem] max-w-[1.45rem]"
                                     >
                                         <div
-                                            className="absolute rotate-90 top-[1rem] right-[-0.75rem] flex text-center"
+                                            className="absolute rotate-90 top-[1rem] right-[-0.75rem] flex text-center bg-yellow-100"
                                         >sigmoid</div>
                                     </td>
                                     {
                                         showedComp.map((c) => (
                                             <td
                                                 key={c}
-                                                className="relative border-l border-gray-300 text-xs h-12 min-w-[1.45rem] max-w-[1.45rem]"
+                                                className={`
+                                                    relative border-l border-gray-300 text-xs h-12 min-w-[1.45rem] max-w-[1.45rem]
+                                                    ${c === "salience" ? " bg-red-100 " : ""}
+                                                    ${c === "content"  ? " bg-orange-100 " : ""}
+                                                    ${c === "novelty" ? " bg-lime-100 " : ""}
+                                                    ${c === "posAbs" ? " bg-teal-100 " : ""}
+                                                    ${c === "posRel" ? " bg-indigo-100 " : ""}
+                                                `}
                                             >
                                                 <div
                                                     className="absolute rotate-90 top-[1.05rem] right-[-0.625rem] flex text-center"
@@ -279,15 +288,6 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                 {
                                     sortSent(formattedSumInfo.filter((sentInfo) => !!sentInfo.dominantComponent)).map((sentInfo, index) => (
                                         <tr
-                                            className={`
-                                                ${sentInfo.dominantComponent === "salience" ? " bg-red-100 " : ""}
-                                                ${sentInfo.dominantComponent === "content"  ? " bg-orange-100 " : ""}
-                                                ${sentInfo.dominantComponent === "novelty" ? " bg-lime-100 " : ""}
-                                                ${sentInfo.dominantComponent === "posAbs" ? " bg-teal-100 " : ""}
-                                                ${sentInfo.dominantComponent === "posRel" ? " bg-indigo-100 " : ""}
-                                                ${sentInfo.dominantComponent === "many" ? " bg-yellow-100 " : ""}
-                                                ${index > 0 ? " border-t border-gray-300 " : ""}
-                                            `}
                                             key={index}
                                         >
                                             <td
@@ -298,12 +298,30 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                 >{sentInfo.index + 1}</div>
                                             </td>
                                             <td
-                                                className={`w-full ${isExcludedSent(excludedSents, sentInfo.index) ? " line-through " : ""}`}
+                                                className={`
+                                                    w-full ${isExcludedSent(excludedSents, sentInfo.index) ? " line-through " : ""}
+                                                    ${sentInfo.dominantComponent === "salience" ? " bg-red-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "content"  ? " bg-orange-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "novelty" ? " bg-lime-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "posAbs" ? " bg-teal-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "posRel" ? " bg-indigo-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "many" ? " bg-yellow-100 " : ""}
+                                                    ${index > 0 ? " border-t border-gray-300 " : ""}
+                                                `}
                                             >
                                                 {sentInfo.sentence}
                                             </td>
                                             <td
-                                                className="cursor-pointer border-l border-gray-300"
+                                                className={`
+                                                    cursor-pointer border-l border-gray-300
+                                                    ${sentInfo.dominantComponent === "salience" ? " bg-red-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "content"  ? " bg-orange-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "novelty" ? " bg-lime-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "posAbs" ? " bg-teal-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "posRel" ? " bg-indigo-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "many" ? " bg-yellow-100 " : ""}
+                                                    ${index > 0 ? " border-t border-gray-300 " : ""}
+                                                `}
                                             >
                                                 {!isExcludedSent(excludedSents, sentInfo.index) &&
                                                     <BsTrash
@@ -319,21 +337,43 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                 }
                                             </td>
                                             <td
-                                                className="border-l border-gray-300 text-xs text-center"
-                                                title={"" + (1.0 / (1.0 + Math.exp(-filter.reduce((acc, curr) => acc + sentInfo[curr], 0))))}
+                                                className="border-l border-gray-300 text-xs text-center relative"
+                                                title={"" + (sigmoid(filter.reduce((acc, curr) => acc + sentInfo[curr], 0)))}
                                             >
-                                                {
-                                                    formatProba(Number((1.0 / (1.0 + Math.exp(-filter.reduce((acc, curr) => acc + sentInfo[curr], 0)))).toFixed(2)))
-                                                }
+                                                <div
+                                                    className="absolute z-10 h-full"
+                                                >{formatProba(Number((sigmoid(filter.reduce((acc, curr) => acc + sentInfo[curr], 0))).toFixed(2)))}</div>
+                                                <div
+                                                    className={`
+                                                        w-full absolute z-0 bottom-0
+                                                        bg-yellow-100
+                                                    `}
+                                                    style={{height : (100 * Number((sigmoid(filter.reduce((acc, curr) => acc + sentInfo[curr], 0))).toFixed(2))) + "%"}}
+                                                >
+                                                </div>
                                             </td>
                                             {
                                                 showedComp.map((c) => (
                                                     <td
                                                         key={c}
-                                                        className="border-l border-gray-300 text-xs text-center min-w-[1.45rem] max-w-[1.45rem]"
+                                                        className="border-l border-gray-300 text-xs text-center min-w-[1.45rem] max-w-[1.45rem] relative"
                                                         title={"" + sentInfo[c]}
                                                     >
-                                                        {formatProba(Number((sentInfo[c]).toFixed(2)))}
+                                                        <div
+                                                            className="absolute z-10 h-full"
+                                                        >{formatProba(Number((sigmoid(sentInfo[c])).toFixed(2)))}</div>
+                                                        <div
+                                                            className={`
+                                                                w-full absolute z-0 bottom-0
+                                                                ${c === "salience" ? " bg-red-100 " : ""}
+                                                                ${c === "content"  ? " bg-orange-100 " : ""}
+                                                                ${c === "novelty" ? " bg-lime-100 " : ""}
+                                                                ${c === "posAbs" ? " bg-teal-100 " : ""}
+                                                                ${c === "posRel" ? " bg-indigo-100 " : ""}
+                                                            `}
+                                                            style={{height : (100 * Number((sigmoid(sentInfo[c])).toFixed(2))) + "%"}}
+                                                        >
+                                                        </div>
                                                     </td>
                                                 ))
                                             }

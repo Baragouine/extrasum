@@ -54,7 +54,6 @@ const Body = () => {
             <div
                 className="hidden md:flex md:h-16 items-center"
             >
-                Non-English documents give a random summary
             </div>
             <div
                 className="w-full flex flex-col md:flex-row md:mb-4"
