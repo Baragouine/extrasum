@@ -224,7 +224,7 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                         className="w-full mb-2 mt-1 py-1 flex justify-between items-center"
                     >
                         <div
-                            className="ml-2"
+                            className="md:hidden ml-2"
                         >
                             <button
                                 className={text.length > 0 ?
@@ -242,7 +242,9 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                                 onClick={(e) => { setText(""); setIsEditText(true); focusTextArea(); }}
                             >clear</button>
                         </div>
-                        <div>
+                        <div
+                            className="md:hidden "
+                        >
                             {text.length > 0 ? text.length + (text.length > 1 ? " chars" : " char") : ""}
                         </div>
                     </div>
@@ -294,7 +296,7 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                         className="w-full mb-2 mt-2 py-1 flex justify-between items-center"
                     >
                         <div
-                            className="ml-2"
+                            className="md:hidden ml-2"
                         >
                             <button
                                 className={text.length > 0 ?
@@ -313,7 +315,7 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                             >clear</button>
                         </div>
                         <div
-                            className="flex flex-row"
+                            className="md:hidden flex flex-row"
                         >
                             <div>{formattedSumInfo.length > 0 ? formattedSumInfo.length + (formattedSumInfo.length > 1 ? " lines" : " line") : ""}</div>
                             <div
