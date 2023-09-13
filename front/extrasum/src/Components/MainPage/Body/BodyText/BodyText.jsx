@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import DropDownWithInputs from "../../../ui/DropDownWithInputs";
 import DelimiterFieldset from "./DelimiterFieldset";
@@ -28,42 +28,12 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
         }
     };
 
-    const updateTextLocally = (t) => {
-        //  TODO
-        setText(t);
-        return;
-
-        let ids = ["textLen1", "textLen2"];
-
-        ids.forEach((id) => {
-            if (!!document.getElementById(id)) {
-                document.getElementById(id).innerHTML = t.length === 0 ? "" : t.length + " chars";
-            }
-        });
-
-        ids = ["btnSummarize1", "btnSummarize2", "btnClear1", "btnClear2"];
-
-        ids.forEach((id) => {
-            if (!!document.getElementById(id)) {
-                document.getElementById(id).style.backgroundColor = t.length > 0 ? 'rgb(55, 65, 81)' : "rgb(209, 213, 219)";
-                document.getElementById(id).style.color = t.length > 0 ? "#ffffff" : 'rgb(55, 65, 81)';
-                document.getElementById(id).style.cursor = t.length > 0 ? "pointer" : 'auto';
-            }
-        });
-    };
-
     const handleSummarizeClicked = async (e) => {
-        if (inputForTextRef?.current) {
-            const t = inputForTextRef.current.value;
+        if (text.length > 0) {
+            const result = await handleSummarize(text, delimiter);
 
-            setText(t);
-
-            if (t.length > 0) {
-                const result = await handleSummarize(t, delimiter);
-
-                if (result[0] === 0) {
-                    setIsEditText(false);
-                }
+            if (result[0] === 0) {
+                setIsEditText(false);
             }
         }
     };
@@ -75,12 +45,28 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
     };
 
     useEffect(() => {
-        if (inputForTextRef.current) {
+        if (inputForTextRef?.current) {
             inputForTextRef.current.style.height = 'auto';
             inputForTextRef.current.style.height = Math.max(inputForTextRef.current.scrollHeight, 256) + "px";
         }
         focusTextArea();
     }, [text, isEditText])
+
+    const [cursorPosition, setCursorPosition] = useState({start:0, end:0});
+
+    const saveTextAreaCursorPosition = () => {
+        if (inputForTextRef?.current) {
+            setCursorPosition({start:inputForTextRef.current.selectionStart, end:inputForTextRef.current.selectionEnd});
+        }
+    };
+
+    useEffect(() => {
+        if (inputForTextRef?.current) {
+            inputForTextRef.current.selectionStart = cursorPosition.start;
+            inputForTextRef.current.selectionEnd = cursorPosition.end;
+            inputForTextRef.current.focus();
+        }
+    }, [cursorPosition, text])
 
     return (
         <div
@@ -155,14 +141,12 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                             className="ml-2"
                         >
                             <button
-                                id="btnSummarize1"
                                 className={text.length > 0 ?
                                     "bg-gray-700 px-2 py-1 rounded-md text-white hover:bg-gray-500" :
                                     "bg-gray-300 px-2 py-1 rounded-md text-gray-700 cursor-auto"}
                                 onClick={handleSummarizeClicked}
                             >summarize</button>
                             <button
-                                id="btnClear1"
                                 className={`${text.length > 0 ?
                                     "bg-gray-700 px-2 py-1 rounded-md text-white hover:bg-gray-500" :
                                     "bg-gray-300 px-2 py-1 rounded-md text-gray-700 cursor-auto"}
@@ -171,9 +155,8 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                                 onClick={(e) => { setText(""); setIsEditText(true); focusTextArea(); }}
                             >clear</button>
                         </div>
-                        <div
-                            id="textLen1"
-                        >
+                        <div>
+                            {text.length > 0 ? text.length + (text.length > 1 ? " chars" : " char") : ""}
                         </div>
                     </div>
                 </div>
@@ -206,11 +189,11 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                         <div
                             className="flex flex-row"
                         >
-                            <div>{formattedSumInfo.length} line(s)</div>
+                            <div>{formattedSumInfo.length > 0 ? formattedSumInfo.length + (formattedSumInfo.length > 1 ? " lines" : " line") : ""}</div>
                             <div
                                 className="ml-4"
                             >
-                                {text.length} char(s)
+                                {text.length > 0 ? text.length + (text.length > 1 ? " chars" : " char") : ""}
                             </div>
                         </div>
                     </div>
@@ -233,7 +216,9 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                         ref={inputForTextRef}
                         className="w-full resize-none max-h-64 md:max-h-none text-base p-1"
                         placeholder="Enter your text here"
-                        onChange={(e) => updateTextLocally(e.target.value)}
+                        value={text}
+                        onChange={(e) => { const t = e.target.value; saveTextAreaCursorPosition(); setText(t);}}
+                        onSelect={(e) => saveTextAreaCursorPosition()}
                     />
                     <div
                         className="w-full mb-2 mt-1 py-1 flex justify-between items-center"
@@ -242,7 +227,6 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                             className="ml-2"
                         >
                             <button
-                                id="btnSummarize2"
                                 className={text.length > 0 ?
                                     "bg-gray-700 px-2 py-1 rounded-md text-white hover:bg-gray-500" :
                                     "bg-gray-300 px-2 py-1 rounded-md text-gray-700 cursor-auto"
@@ -250,7 +234,6 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                                 onClick={handleSummarizeClicked}
                             >summarize</button>
                             <button
-                                id="btnClear2"
                                 className={`${text.length > 0 ?
                                     "bg-gray-700 px-2 py-1 rounded-md text-white hover:bg-gray-500" :
                                     "bg-gray-300 px-2 py-1 rounded-md text-gray-700 cursor-auto"}
@@ -259,9 +242,8 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                                 onClick={(e) => { setText(""); setIsEditText(true); focusTextArea(); }}
                             >clear</button>
                         </div>
-                        <div
-                            id="textLen2"
-                        >
+                        <div>
+                            {text.length > 0 ? text.length + (text.length > 1 ? " chars" : " char") : ""}
                         </div>
                     </div>
                 </div>
@@ -333,11 +315,11 @@ const BodyText = ({ handleSummarize, delimiter, setDelimiter, sumLengthUnit, set
                         <div
                             className="flex flex-row"
                         >
-                            <div>{formattedSumInfo.length} line(s)</div>
+                            <div>{formattedSumInfo.length > 0 ? formattedSumInfo.length + (formattedSumInfo.length > 1 ? " lines" : " line") : ""}</div>
                             <div
                                 className="ml-4"
                             >
-                                {text.length} char(s)
+                                {text.length > 0 ? text.length + (text.length > 1 ? " chars" : " char") : ""}
                             </div>
                         </div>
                     </div>
