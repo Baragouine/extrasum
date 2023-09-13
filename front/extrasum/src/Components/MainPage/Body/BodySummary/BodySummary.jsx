@@ -54,7 +54,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
     };
 
     const handleCopy = () => {
-        let summary = sortSent(formattedSumInfo.filter((sentInfo) => !!sentInfo.dominantComponent && sentInfo.dominantComponent !== "excluded")).reduce((acc, curr) => acc + curr.sentence, "");
+        let summary = sortSent(formattedSumInfo.filter((sentInfo) => !!sentInfo.dominantComponent && sentInfo.dominantComponent !== "excluded")).reduce((acc, curr) => acc + (acc.length > 0 ? " " : "") + curr.sentence, "");
 
         navigator.clipboard.writeText(summary).then(() => {
             setShowMsgSumarryCopied(false);
@@ -247,7 +247,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                         className="max-h-64 md:max-h-none overflow-auto text-base pb-5"
                     >
                         <table
-                            className="w-full"
+                            className="w-full border-r border-gray-300"
                         >
                             <thead>
                                 <tr>
@@ -256,13 +256,41 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                         className="w-full"
                                     ></td>
                                     <td></td>
-                                    <td
-                                        className="relative border-l border-gray-300 text-xs h-12 min-w-[1.45rem] max-w-[1.45rem]"
+                                    <th
+                                        className={`
+                                            relative text-xs h-12 min-w-[1.45rem] max-w-[1.45rem] justify-center text-center
+                                            bg-yellow-100
+                                        `}
+                                        rowSpan={2}
                                     >
                                         <div
-                                            className="absolute rotate-90 top-[1rem] right-[-0.75rem] flex text-center bg-yellow-100"
-                                        >sigmoid</div>
-                                    </td>
+                                            className="flex w-full h-full justify-center text-center items-center italic font-bold"
+                                        >P</div>
+                                        <div
+                                            className="absolute bottom-0 w-full z-20 border-b border-gray-300"
+                                        ></div>
+                                        <div
+                                            className="absolute z-20 w-full h-full border-l border-gray-300 bottom-0"
+                                        ></div>
+                                        <div
+                                            className="absolute z-30 w-full h-full border-r border-gray-500 bottom-0 left-px"
+                                        ></div>
+                                    </th>
+                                    {
+                                        showedComp.length > 0 && <td
+                                            colSpan={showedComp.length}
+                                            className="font-bold text-center border-b border-x border-gray-300 bg-gray-200"
+                                        >
+                                            features
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td
+                                        className="w-full"
+                                    ></td>
+                                    <td></td>
                                     {
                                         showedComp.map((c) => (
                                             <td
@@ -277,8 +305,25 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                 `}
                                             >
                                                 <div
-                                                    className="absolute rotate-90 top-[1.05rem] right-[-0.625rem] flex text-center"
+                                                    className={`
+                                                        absolute rotate-90 flex text-center
+                                                        ${c === "salience" ? " top-[1rem] right-[-0.6rem] " : ""}
+                                                        ${c === "content"  ? " top-[0.98rem] right-[-0.6rem] " : ""}
+                                                        ${c === "novelty" ? " top-[0.97rem] right-[-0.55rem] " : ""}
+                                                        ${c === "posAbs" ? " top-[1rem] right-[-0.6rem] " : ""}
+                                                        ${c === "posRel" ? " top-[0.97rem] right-[-0.45rem] " : ""}
+                                                    `}
                                                 >{c}</div>
+                                                <div
+                                                    className={`
+                                                        absolute z-20 bottom-0 left-px w-full h-full border-b border-r border-gray-300
+                                                    `}
+                                                ></div>
+                                                <div
+                                                    className={`
+                                                        absolute z-20 -top-px left-px w-full h-full border-r border-gray-300
+                                                    `}
+                                                ></div>
                                             </td>
                                         ))
                                     }
@@ -291,7 +336,15 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                             key={index}
                                         >
                                             <td
-                                                className="align-top text-right"
+                                                className={`
+                                                    align-top text-right border-t border-b border-gray-300
+                                                    ${sentInfo.dominantComponent === "salience" ? " bg-red-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "content"  ? " bg-orange-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "novelty" ? " bg-lime-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "posAbs" ? " bg-teal-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "posRel" ? " bg-indigo-100 " : ""}
+                                                    ${sentInfo.dominantComponent === "many" ? " bg-yellow-100 " : ""}
+                                                `}
                                             >
                                                 <div
                                                     className="px-2"
@@ -306,7 +359,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                     ${sentInfo.dominantComponent === "posAbs" ? " bg-teal-100 " : ""}
                                                     ${sentInfo.dominantComponent === "posRel" ? " bg-indigo-100 " : ""}
                                                     ${sentInfo.dominantComponent === "many" ? " bg-yellow-100 " : ""}
-                                                    ${index > 0 ? " border-t border-gray-300 " : ""}
+                                                    border-y border-gray-300
                                                 `}
                                             >
                                                 {sentInfo.sentence}
@@ -320,7 +373,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                     ${sentInfo.dominantComponent === "posAbs" ? " bg-teal-100 " : ""}
                                                     ${sentInfo.dominantComponent === "posRel" ? " bg-indigo-100 " : ""}
                                                     ${sentInfo.dominantComponent === "many" ? " bg-yellow-100 " : ""}
-                                                    ${index > 0 ? " border-t border-gray-300 " : ""}
+                                                    border-y border-gray-300
                                                 `}
                                             >
                                                 {!isExcludedSent(excludedSents, sentInfo.index) &&
@@ -337,11 +390,13 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                 }
                                             </td>
                                             <td
-                                                className="border-l border-gray-300 text-xs text-center relative"
+                                                className={`
+                                                    text-xs text-center relative
+                                                `}
                                                 title={"" + (sigmoid(filter.reduce((acc, curr) => acc + sentInfo[curr], 0)))}
                                             >
                                                 <div
-                                                    className="absolute z-10 h-full"
+                                                    className="absolute flex bottom-0 items-center text-center justify-center z-10 w-full h-full border-r border-gray-500"
                                                 >{formatProba(Number((sigmoid(filter.reduce((acc, curr) => acc + sentInfo[curr], 0))).toFixed(2)))}</div>
                                                 <div
                                                     className={`
@@ -351,6 +406,12 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                     style={{height : (100 * Number((sigmoid(filter.reduce((acc, curr) => acc + sentInfo[curr], 0))).toFixed(2))) + "%"}}
                                                 >
                                                 </div>
+                                                <div
+                                                    className="absolute bottom-0 w-full z-20 border-b border-gray-300"
+                                                ></div>
+                                                <div
+                                                    className="absolute z-20 w-full h-full border-l border-gray-300 bottom-0"
+                                                ></div>
                                             </td>
                                             {
                                                 showedComp.map((c) => (
@@ -360,11 +421,11 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                         title={"" + sentInfo[c]}
                                                     >
                                                         <div
-                                                            className="absolute z-10 h-full"
+                                                            className="absolute flex items-center text-center justify-center z-10 w-full h-full bottom-0"
                                                         >{formatProba(Number((sigmoid(sentInfo[c])).toFixed(2)))}</div>
                                                         <div
                                                             className={`
-                                                                w-full absolute z-0 bottom-0
+                                                                w-full absolute z-0 bottom-px
                                                                 ${c === "salience" ? " bg-red-100 " : ""}
                                                                 ${c === "content"  ? " bg-orange-100 " : ""}
                                                                 ${c === "novelty" ? " bg-lime-100 " : ""}
@@ -372,8 +433,17 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                                                 ${c === "posRel" ? " bg-indigo-100 " : ""}
                                                             `}
                                                             style={{height : (100 * Number((sigmoid(sentInfo[c])).toFixed(2))) + "%"}}
-                                                        >
-                                                        </div>
+                                                        ></div>
+                                                        <div
+                                                            className={`
+                                                                absolute z-20 bottom-0 left-px w-full h-full border-b border-r border-gray-300
+                                                            `}
+                                                        ></div>
+                                                        <div
+                                                            className={`
+                                                                absolute z-20 -top-px left-px w-full h-full border-r border-gray-300
+                                                            `}
+                                                        ></div>
                                                     </td>
                                                 ))
                                             }
