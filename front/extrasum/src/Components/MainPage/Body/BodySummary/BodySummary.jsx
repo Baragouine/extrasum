@@ -97,7 +97,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                 >
                     {!isEditText &&
                         <div
-                            className="flex flex-row z-10"
+                            className="flex flex-row z-40"
                         >
                             <div>
                                 <DropDownWithInputs

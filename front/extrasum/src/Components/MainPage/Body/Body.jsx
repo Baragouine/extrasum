@@ -6,7 +6,7 @@ import SummaryServices from "../../../Services/SummaryServices";
 import { formatText } from "../../../utils/formatText";
 
 
-const Body = () => {
+const Body = ({setIsProcessing}) => {
     const [text, setText] = useState("");
     const [isEditText, setIsEditText] = useState(true);
     const [sumInfo, setSumInfo] = useState([]);
@@ -21,7 +21,11 @@ const Body = () => {
     const [currentDropDownWithInputsIdLvl0, setCurrentDropDownWithInputsIdLvl0] = useState(null);
 
     const handleSummarize = async (text, delimiter) => {
+        setIsProcessing(true);
+
         const result = await SummaryServices.summarize(null, text, delimiter);
+
+        setIsProcessing(false);
 
         if (result[0] === 0) {
             setSumInfo(result[1]);
