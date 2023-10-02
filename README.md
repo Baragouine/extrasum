@@ -1,4 +1,4 @@
-# extrasum
+# RADsum
 A web application for extractive summarization based on SummaRuNNer.
 
 ## Run on local
