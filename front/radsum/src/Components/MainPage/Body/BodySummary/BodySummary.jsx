@@ -160,7 +160,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                     }
                 </div>
                 <div
-                    className="lg:hidden z-10"
+                    className="lg:hidden z-40"
                 >
                     {!isEditText &&
                         <DropDownWithInputs
