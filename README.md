@@ -4,22 +4,22 @@ A web application for extractive summarization based on SummaRuNNer.
 ## Run on local
 ### Clone project
 ```bash
-git clone https://github.com/Baragouine/extrasum.git
+git clone https://github.com/Baragouine/radsum.git
 ```
 
 ### Create env (conda)
 ```bash
-conda create --name EXTRASUM python=3.9
+conda create --name RADSUM python=3.9
 ```
 
 ### Activate env
 ```bash
-conda activate EXTRASUM
+conda activate RADSUM
 ```
 
 ### Enter into back-end directory
 ```bash
-cd extrasum/back/
+cd radsum/back/
 ```
 
 ### Install dependencies
@@ -44,12 +44,12 @@ pip install django-cors-headers
 
 ### Enter into back-end directory
 ```bash
-cd extrasum_back/ # location: extrasum/back/extrasum_back
+cd back/ # location: radsum/back/back
 ```
 ### Download data
-Download [https://drive.google.com/file/d/13lErhO3rZ1gZaOPmjPwZryc8nNJKW9Wt/view?usp=sharing](https://drive.google.com/file/d/13lErhO3rZ1gZaOPmjPwZryc8nNJKW9Wt/view?usp=sharing), extract and copy it to `extrasum/back/extrasum_back`.  
+Download [https://drive.google.com/file/d/13lErhO3rZ1gZaOPmjPwZryc8nNJKW9Wt/view?usp=sharing](https://drive.google.com/file/d/13lErhO3rZ1gZaOPmjPwZryc8nNJKW9Wt/view?usp=sharing), extract and copy it to `radsum/back/back`.  
 
-The path must be `extrasum/back/extrasum_back/data/`.
+The path must be `radsum/back/back/data/`.
 
 ### Migrate
 ```
@@ -66,7 +66,7 @@ Open a new terminal.
   
 npm must be installed (version 9.8.0 recommended).  
   
-Enter into `cd extrasum/front/extrasum/`.  
+Enter into `cd radsum/front/radsum/`.  
   
 Run ```npm install```.
 
