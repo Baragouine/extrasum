@@ -6,7 +6,7 @@ import SummaryServices from "../../../Services/SummaryServices";
 import { formatText } from "../../../utils/formatText";
 
 
-const Body = ({setIsProcessing}) => {
+const Body = ({ setIsProcessing, selectedModel }) => {
     const [text, setText] = useState("");
     const [isEditText, setIsEditText] = useState(true);
     const [sumInfo, setSumInfo] = useState([]);
@@ -23,7 +23,7 @@ const Body = ({setIsProcessing}) => {
     const handleSummarize = async (text, delimiter) => {
         setIsProcessing(true);
 
-        const result = await SummaryServices.summarize(null, text, delimiter);
+        const result = await SummaryServices.summarize(selectedModel, text, delimiter);
 
         setIsProcessing(false);
 

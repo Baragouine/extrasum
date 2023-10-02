@@ -8,6 +8,7 @@ import Body from "./Body/Body";
 
 const MainPage = () => {
     const [isProcessing, setIsProcessing] = useState(false);
+    const [selectedModel, setSelectedModel] = useState("en/nyt");
 
     return (
         <Page
@@ -36,8 +37,12 @@ const MainPage = () => {
                     </div>
                 </div>
             }
-            <Header />
+            <Header
+                selectedModel={selectedModel}
+                setSelectedModel={setSelectedModel}
+            />
             <Body
+                selectedModel={selectedModel}
                 setIsProcessing={setIsProcessing}
             />
             <Footer />

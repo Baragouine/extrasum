@@ -33,7 +33,7 @@ import os
 from django.conf import settings
 
 cuda_num = "0"#None
-vocab_size = 50000
+vocab_size = 150000
 word_blacklist_proportion = 0.1
 
 if torch.cuda.is_available() and cuda_num is not None:  
@@ -360,6 +360,6 @@ def summary_model_text_delimiter(model, text, is_sep_n, trunc_doc=50):
   return res, ignored_sents
 
 
-def summary_with_HSGRNN_NYT(text, is_sep_n):
+def summary_with_HSGRNN_CNN_DailyMail(text, is_sep_n):
   return summary_model_text_delimiter(model, text, is_sep_n)
 
