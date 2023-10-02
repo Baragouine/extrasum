@@ -20,7 +20,7 @@ const Header = () => {
                 <div
                     className="ml-2 font-bold text-xl"
                 >
-                    ExtraSum
+                    RADSum
                 </div>
             </div>
             <div>
