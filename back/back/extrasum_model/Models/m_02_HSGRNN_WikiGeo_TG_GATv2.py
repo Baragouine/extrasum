@@ -336,7 +336,7 @@ def summary_model_text_delimiter(model, text, is_sep_n, trunc_doc=50):
   text_splitted = doc
 
   # preprocess and trunc
-  doc = preprocess_text(text, embmgr, is_sep_n, remove_stop_word=True, stemming=True, trunc_sent=-1, padding_sent=-1)
+  doc = preprocess_text(text, embmgr, labels_ner=None, is_sep_n=is_sep_n, remove_stop_word=True, stemming=False, trunc_sent=-1, padding_sent=-1)
 
   if trunc_doc != -1:
     truncated_doc = doc[:trunc_doc]
