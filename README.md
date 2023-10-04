@@ -47,7 +47,7 @@ pip install django-cors-headers
 cd back/ # location: radsum/back/back
 ```
 ### Download data
-Download [https://drive.google.com/file/d/13lErhO3rZ1gZaOPmjPwZryc8nNJKW9Wt/view?usp=sharing](https://drive.google.com/file/d/13lErhO3rZ1gZaOPmjPwZryc8nNJKW9Wt/view?usp=sharing), extract and copy it to `radsum/back/back`.  
+Download [https://drive.google.com/file/d/1NfVJa21NIGyX9USrnS-hpqnaWitORqP0/view?usp=sharing](https://drive.google.com/file/d/1NfVJa21NIGyX9USrnS-hpqnaWitORqP0/view?usp=sharing), extract and copy it to `radsum/back/back`.  
 
 The path must be `radsum/back/back/data/`.
 
