@@ -9,6 +9,13 @@ import Body from "./Body/Body";
 const MainPage = () => {
     const [isProcessing, setIsProcessing] = useState(false);
     const [selectedModel, setSelectedModel] = useState("en/nyt");
+    const [isErrorWindowShowed, setErrorWindowShowed] = useState(false);
+    const [msgError, setMsgError] = useState('');
+
+    const displayMsgError = (msg) => {
+        setMsgError(msg);
+        setErrorWindowShowed(true);
+    };
 
     return (
         <Page
@@ -37,6 +44,31 @@ const MainPage = () => {
                     </div>
                 </div>
             }
+            {isErrorWindowShowed &&
+                <div
+                    className="absolute inset-0 z-[110] bg-black bg-opacity-30 w-full h-full"
+                >
+                    <div
+                        className="flex w-full h-screen items-center justify-center"
+                    >
+                        <div className="block w-64 bg-white px-10 py-3">
+                            <h1 className="text-red-600 text-xl h-full text-center">Error</h1>
+                            <hr/>
+                            <div className="flex w-full items-center justify-center text-black text-md pt-2 pb-4">
+                                {msgError}
+                            </div>
+                            <div
+                                className="flex justify-center"
+                            >
+                                <button
+                                    onClick={() => { setMsgError(''); setErrorWindowShowed(false);}}
+                                    className="ml-2 focus:outline-none bg-blue-300 hover:bg-blue-500 hover:text-white px-2 py-1 rounded-md"
+                                >Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
             <Header
                 selectedModel={selectedModel}
                 setSelectedModel={setSelectedModel}
@@ -44,6 +76,7 @@ const MainPage = () => {
             <Body
                 selectedModel={selectedModel}
                 setIsProcessing={setIsProcessing}
+                displayMsgError={displayMsgError}
             />
             <Footer />
         </Page>

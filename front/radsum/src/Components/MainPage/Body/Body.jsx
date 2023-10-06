@@ -6,7 +6,7 @@ import SummaryServices from "../../../Services/SummaryServices";
 import { formatText } from "../../../utils/formatText";
 
 
-const Body = ({ setIsProcessing, selectedModel }) => {
+const Body = ({ setIsProcessing, selectedModel, displayMsgError }) => {
     const [text, setText] = useState("");
     const [isEditText, setIsEditText] = useState(true);
     const [sumInfo, setSumInfo] = useState([]);
@@ -21,15 +21,23 @@ const Body = ({ setIsProcessing, selectedModel }) => {
     const [currentDropDownWithInputsIdLvl0, setCurrentDropDownWithInputsIdLvl0] = useState(null);
 
     const handleSummarize = async (text, delimiter) => {
+        let result = [-1, "Unknown error."];
+        
         setIsProcessing(true);
-
-        const result = await SummaryServices.summarize(selectedModel, text, delimiter);
+        
+        try {
+            result = await SummaryServices.summarize(selectedModel, text, delimiter);
+        } catch (error) {
+            result = [-1, "Network Error."];
+        }
 
         setIsProcessing(false);
 
         if (result[0] === 0) {
             setSumInfo(result[1]);
             setFormattedSumInfo(formatText(result[1], excludedSents, filter, sumLength, sumLengthUnit));
+        } else {
+            displayMsgError(result[1]);
         }
 
         return result;
@@ -49,7 +57,11 @@ const Body = ({ setIsProcessing, selectedModel }) => {
         if (!isEditText) {
             setFormattedSumInfo(formatText(sumInfo, excludedSents, filter, sumLength, sumLengthUnit));
         }
-    }, [isEditText, sumLength, sumLengthUnit, excludedSents]);
+    }, [isEditText, sumInfo, excludedSents, filter, sumLength, sumLengthUnit]);
+
+    useEffect(() => {
+        setIsEditText(true);
+    }, [selectedModel]);
 
     return (
         <div

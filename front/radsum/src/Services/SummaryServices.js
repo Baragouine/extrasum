@@ -1,7 +1,7 @@
 class SummaryServicesClass {
     async summarize(model, text, delimiter) {
         if (text.length === 0)
-            return [-1, "Empty text"];
+            return [-1, "Empty text."];
 
         /*
         // TODO: send params to api and get text split and output value (content, salience, novelty, pos. abs, pos. rel)
@@ -20,7 +20,7 @@ class SummaryServicesClass {
         });
 
         if (res.status !== 200)
-            return [-1, "Unknown error"]
+            return [-1, "Unknown error."]
 
         console.log(res);
 
