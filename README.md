@@ -75,3 +75,5 @@ Run ```npm install react-scripts```.
   
 Finally, run ```npm start```.
 
+## License
+&copy; 2023 Raoufdine SAID & Adrien GUILLE - All rights reserved. This software is distributed under the [MIT License](LICENSE).
