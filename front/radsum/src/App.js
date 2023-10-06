@@ -9,7 +9,7 @@ import PageNotFound from "./Components/PageNotFound/PageNotFound";
 
 function App() {
   return (
-    <Router basename="/extrasum-tmp-demo">
+    <Router basename="/">
       <Routes>
         <Route exact path="/help" element={<HelpPage/>}/>
         <Route exact path="/about" element={<AboutPage/>}/>
