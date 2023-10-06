@@ -33,8 +33,8 @@ const Header = ( { selectedModel, setSelectedModel } ) => {
                 <div
                     className="ml-8 sm:ml-4 h-full flex items-center"
                 >
-                    <div class="flex h-full items-center border rounded-md border-white">
-                        <div class="pl-2 pr-1 pointer-events-none hidden sm:flex">
+                    <div className="flex h-full items-center border rounded-md border-white">
+                        <div className="pl-2 pr-1 pointer-events-none hidden sm:flex">
                             Model
                         </div>
                         <select
@@ -52,7 +52,6 @@ const Header = ( { selectedModel, setSelectedModel } ) => {
                         </select>
                     </div>
                     <div
-                        for="listModel"
                         className="absolute h-full inset-y-0 left-0 flex items-center pl-1 pointer-events-none sm:inline text-white"
                     >
                         <div
