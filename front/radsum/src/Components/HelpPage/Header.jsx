@@ -37,7 +37,7 @@ const HelpHeader = ( { selectedModel, setSelectedModel } ) => {
                     <Link
                         to="/"
                         className="px-4 py-2 hover:bg-gray-500 rounded-md"
-                    >Summarize</Link>
+                    >Summarization</Link>
                 </div>
             </div>
             <div>
