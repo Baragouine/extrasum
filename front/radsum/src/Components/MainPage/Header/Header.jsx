@@ -20,8 +20,10 @@ const Header = ( { selectedModel, setSelectedModel } ) => {
             <div
                 className="flex flex-row items-center"
             >
-                <div>
-                    <img src={Logo} alt="Logo" width="32px" height="32px" />
+                <div
+                    className="flex justify-center bg-white rounded-full py-1 w-8 h-8"
+                >
+                    <img src={Logo} alt="Logo" width="20px" height="20px" />
                 </div>
                 <div
                     className="sm:ml-2 font-bold text-xl hidden sm:flex"
