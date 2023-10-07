@@ -1,6 +1,10 @@
 # RADsum
 A web application for extractive summarization based on SummaRuNNer.
 
+<p float="center">
+  <img src="/miniature.png" width="500" />
+</p>
+
 ## Run on local
 ### Clone project
 ```bash
