@@ -4,22 +4,22 @@ A web application for extractive summarization based on SummaRuNNer.
 ## Run on local
 ### Clone project
 ```bash
-git clone https://github.com/Baragouine/radsum.git
+git clone https://github.com/Baragouine/radsum_app.git
 ```
 
 ### Create env (conda)
 ```bash
-conda create --name RADSUM python=3.9
+conda create --name RADSUM_APP python=3.9
 ```
 
 ### Activate env
 ```bash
-conda activate RADSUM
+conda activate RADSUM_APP
 ```
 
 ### Enter into back-end directory
 ```bash
-cd radsum/back/
+cd radsum_app/back/
 ```
 
 ### Install dependencies
@@ -44,12 +44,13 @@ pip install django-cors-headers
 
 ### Enter into back-end directory
 ```bash
-cd back/ # location: radsum/back/back
+cd back/ # location: radsum_app/back/back
 ```
-### Download data
-Download [https://drive.google.com/file/d/1NfVJa21NIGyX9USrnS-hpqnaWitORqP0/view?usp=sharing](https://drive.google.com/file/d/1NfVJa21NIGyX9USrnS-hpqnaWitORqP0/view?usp=sharing), extract and copy it to `radsum/back/back`.  
 
-The path must be `radsum/back/back/data/`.
+### Download data
+Download [https://drive.google.com/file/d/1NfVJa21NIGyX9USrnS-hpqnaWitORqP0/view?usp=sharing](https://drive.google.com/file/d/1NfVJa21NIGyX9USrnS-hpqnaWitORqP0/view?usp=sharing), extract and copy it to `radsum_app/back/back`.  
+
+The path must be `radsum_app/back/back/data/`.
 
 ### Migrate
 ```
@@ -66,11 +67,13 @@ Open a new terminal.
   
 npm must be installed (version 9.8.0 recommended).  
   
-Enter into `cd radsum/front/radsum/`.  
-  
+Enter into `cd radsum_app/front/radsum/`.  
+
 Run ```npm install```.
 
 Run ```npm install react-scripts```.
   
 Finally, run ```npm start```.
 
+## License
+&copy; 2023 Raoufdine SAID & Adrien GUILLE - All rights reserved. This software is distributed under the [MIT License](LICENSE).

@@ -7,7 +7,7 @@ const Footer = () => {
         <div
             className="w-full h-16 bg-gray-700 text-white flex justify-center items-center text-center"
         >
-            &copy; {(new Date()).getFullYear()} - Laboratoire ERIC
+            &copy; 2023 Raoufdine SAID & Adrien GUILLE - All rights reserved. This software is distributed under the MIT License.
         </div>
     );
 };
