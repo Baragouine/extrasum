@@ -73,6 +73,10 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
 
     const sigmoid = (x) => 1.0 / (1.0 + Math.exp(-x));
 
+    const sortShowedComp = (showedComp) => {
+        return ["salience", "content", "novelty", "posAbs", "posRel"].filter((c) => showedComp.includes(c));
+    };
+
     return (
         <div
             className={`
@@ -292,7 +296,7 @@ const BodySummary = ({ isEditText, formattedSumInfo, excludedSents, setExcludedS
                                     ></td>
                                     <td></td>
                                     {
-                                        showedComp.map((c) => (
+                                        sortShowedComp(showedComp).map((c) => (
                                             <td
                                                 key={c}
                                                 className={`
