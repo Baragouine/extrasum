@@ -5,6 +5,10 @@ A web application for extractive summarization based on SummaRuNNer.
   <img src="/miniature.png" width="500" />
 </p>
 
+Paper: https://adrienguille.github.io/publications/ecir2024.pdf  
+Model: https://github.com/Baragouine/radsum  
+
+
 ## Run on local
 ### Clone project
 ```bash
